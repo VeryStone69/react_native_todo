@@ -18,7 +18,7 @@ export default function App() {
         {id: 3, title: "React", isDone: false},
         {id: 4, title: "Vue", isDone: false},
     ])
-    const toggleTask = (taskId: number) => {
+    const changeTask = (taskId: number) => {
         const updatedTasks = task.map(taskItem => {
             if (taskItem.id === taskId) {
                 return {...taskItem, isDone: !taskItem.isDone};
@@ -41,10 +41,10 @@ export default function App() {
         setTasks([...task.filter(el=>el.id!=taskId )])
         Alert.alert(String(taskId))
     }
+
     return (
         <HideKeyboard>
             <View style={styles.container}>
-
                 <View style={[styles.inputContainer]}>
                     <TextInput value={value} style={[styles.input]} onChangeText={setValue}/>
                     <Button title="Add" onPress={addTask} buttonStyle={[styles.addButton]}></Button>
@@ -56,8 +56,9 @@ export default function App() {
                             <CheckBox
                                 title={el.title}
                                 checked={el.isDone}
-                                onPress={() => toggleTask(el.id)}
-                                checkedColor='#272343' // Здесь задается цвет галочки
+                                onPress={() => changeTask(el.id)}
+                                checkedColor='#272343'
+                                containerStyle={[el.isDone?styles.checkboxNegative:styles.checkboxActive]}
                             />
                             <Button title="Del" onPress={()=>deleteTask(el.id)} buttonStyle={[styles.delButton]}></Button>
                         </View>
@@ -87,6 +88,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         padding: 8,
         paddingHorizontal: 15
+    },
+    checkboxActive:{
+        opacity:1
+    },
+    checkboxNegative:{
+        opacity:0.2
     },
     addButton: {
         backgroundColor: '#ffd803',
