@@ -12,10 +12,10 @@ type TaskType = {
 export default function App() {
     const [value, setValue] = useState("USEstate value");
     const [task, setTasks] = useState([
-        {id: 0, title: "HTML", isDone: true},
-        {id: 1, title: "CSS", isDone: true},
-        {id: 2, title: "JS", isDone: true},
-        {id: 3, title: "React", isDone: true},
+        {id: 0, title: "HTML", isDone: false},
+        {id: 1, title: "CSS", isDone: false},
+        {id: 2, title: "JS", isDone: false},
+        {id: 3, title: "React", isDone: false},
         {id: 4, title: "Vue", isDone: false},
     ])
     const toggleTask = (taskId: number) => {
@@ -59,7 +59,7 @@ export default function App() {
                                 onPress={() => toggleTask(el.id)}
                                 checkedColor='#272343' // Здесь задается цвет галочки
                             />
-                            <Button title="Del" onPress={()=>deleteTask(el.id)} buttonStyle={[styles.addButton]}></Button>
+                            <Button title="Del" onPress={()=>deleteTask(el.id)} buttonStyle={[styles.delButton]}></Button>
                         </View>
                     })}
                 </View>
@@ -91,6 +91,9 @@ const styles = StyleSheet.create({
     addButton: {
         backgroundColor: '#ffd803',
         color: "#272343"
+    },
+    delButton:{
+      backgroundColor: "#ff0303"
     },
     inputContainer: {
         flexDirection: 'row',
