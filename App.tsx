@@ -1,7 +1,6 @@
 import {Alert, Keyboard, StyleSheet, Text, TextInput, Touchable, TouchableWithoutFeedback, View} from 'react-native';
 import {ReactElement, ReactNode, useState} from "react";
 import {Button, CheckBox} from "react-native-elements";
-import { Swipeable } from 'react-native-gesture-handler';
 
 type TaskType = {
     id: number
@@ -10,7 +9,7 @@ type TaskType = {
 }
 
 export default function App() {
-    const [value, setValue] = useState("USEstate value");
+    const [value, setValue] = useState("");
     const [task, setTasks] = useState([
         {id: 0, title: "HTML", isDone: false},
         {id: 1, title: "CSS", isDone: false},
@@ -28,20 +27,23 @@ export default function App() {
         setTasks(updatedTasks);
     }
     const addTask = () => {
-        if(value.trim()){
-            const newTasks = {id:task.length+1,title:value,isDone:false}
-            setTasks([...task,newTasks])
+        if (value.length >= 35) {
+            Alert.alert(JSON.stringify("Напиши покороче. Тут ограничение в 35 символов"))
+            return
+        }
+        if (value.trim()) {
+            const newTasks = {id: task.length + 1, title: value, isDone: false}
+            setTasks([...task, newTasks])
             setValue("")
         } else {
             Alert.alert(JSON.stringify("Напиши что-нибудь"))
         }
 
     }
-    const deleteTask = (taskId:number) =>{
-        setTasks([...task.filter(el=>el.id!=taskId )])
+    const deleteTask = (taskId: number) => {
+        setTasks([...task.filter(el => el.id != taskId)])
         Alert.alert(String(taskId))
     }
-
     return (
         <HideKeyboard>
             <View style={styles.container}>
@@ -58,9 +60,10 @@ export default function App() {
                                 checked={el.isDone}
                                 onPress={() => changeTask(el.id)}
                                 checkedColor='#272343'
-                                containerStyle={[el.isDone?styles.checkboxNegative:styles.checkboxActive]}
+                                containerStyle={[el.isDone ? styles.checkboxNegative : styles.checkboxActive]}
                             />
-                            <Button title="Del" onPress={()=>deleteTask(el.id)} buttonStyle={[styles.delButton]}></Button>
+                            <Button title="Del" onPress={() => deleteTask(el.id)}
+                                    buttonStyle={[styles.delButton]}></Button>
                         </View>
                     })}
                 </View>
@@ -84,23 +87,23 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#bae8e8',
         borderRadius: 5,
-        width: 200,
+        width: 300,
         fontSize: 20,
         padding: 8,
         paddingHorizontal: 15
     },
-    checkboxActive:{
-        opacity:1
+    checkboxActive: {
+        opacity: 1
     },
-    checkboxNegative:{
-        opacity:0.2
+    checkboxNegative: {
+        opacity: 0.2
     },
     addButton: {
         backgroundColor: '#ffd803',
         color: "#272343"
     },
-    delButton:{
-      backgroundColor: "#ff0303"
+    delButton: {
+        backgroundColor: "#ff0303"
     },
     inputContainer: {
         flexDirection: 'row',
