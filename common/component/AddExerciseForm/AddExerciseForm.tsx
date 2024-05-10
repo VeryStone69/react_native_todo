@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, TextInput, Button} from 'react-native';
 
-type ExerciseData = {
+export type ExerciseData = {
     exerciseName: string;
     category: string;
 }

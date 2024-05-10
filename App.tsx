@@ -1,35 +1,59 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {View, Text, Alert} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from "react-native-safe-area-context";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {AddExerciseForm, ExerciseData} from "./common/component/AddExerciseForm/AddExerciseForm";
+import {useState} from "react";
+import uuid from 'react-native-uuid';
 
-
+type Exercise = {
+    category: string
+    exerciseName: string
+    id: string | number[]
+}
 function HomeScreen() {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>путь длинной в 1000 миль начинается с одного единственного первого шага</Text>
+    const [exercises, setExercises] = useState<Exercise[]>([]);
+    console.log(exercises)
+    const handleAddExercise = (exerciseData: ExerciseData) => {
+        if(!!exerciseData.exerciseName.trim() && !!exerciseData.category.trim()){
+            const newExercise = {id: uuid.v4() , ...exerciseData };
+            setExercises([...exercises, newExercise]);
+        } else {
+            throw new Error("Заполните строки");
+        }
 
-        </View>
+    };
+    return (
+        <>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                {/*<Text>путь длинной в 1000 миль начинается с одного единственного первого шага</Text>*/}
+                <AddExerciseForm onAddExercise={handleAddExercise}/>
+            </View>
+            <View></View>
+        </>
+
     );
 }
+
 function StatisticsScreen() {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text>Your Profile</Text>
         </View>
     );
 }
 
 const Tab = createBottomTabNavigator();
+
 function App() {
 
     return (
         <SafeAreaProvider>
             <NavigationContainer>
                 <Tab.Navigator>
-                    <Tab.Screen name="Home" component={HomeScreen} />
-                    <Tab.Screen name="Statistics" component={StatisticsScreen} />
+                    <Tab.Screen name="Home" component={HomeScreen}/>
+                    <Tab.Screen name="Statistics" component={StatisticsScreen}/>
                 </Tab.Navigator>
             </NavigationContainer>
         </SafeAreaProvider>
