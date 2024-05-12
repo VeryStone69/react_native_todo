@@ -21,19 +21,21 @@ export const AddExerciseForm= (props:AddExerciseFormProps) => {
     };
 
     return (
-        <View>
+        <View >
             <TextInput
+                style={{width:200,height:50, fontSize:25, textAlign:"center"}}
                 placeholder="Название упражнения"
                 value={exerciseName}
                 onChangeText={setExerciseName}
             />
             <TextInput
+                style={{width:200,height:50, fontSize:25, textAlign:"center"}}
                 placeholder="Категория"
                 value={category}
                 onChangeText={setCategory}
             />
-            <Button title="Добавить упражнение" onPress={handleAddExercise}/>
+                <Button title="Добавить упражнение" onPress={handleAddExercise} />
+
         </View>
     );
 };
-
