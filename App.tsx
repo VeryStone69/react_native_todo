@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {View, Text, Alert} from 'react-native';
+import {View, Text, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {AddExerciseForm, ExerciseData} from "./common/component/AddExerciseForm/AddExerciseForm";
-import {useState} from "react";
+import {ReactElement, ReactNode, useState} from "react";
 import uuid from 'react-native-uuid';
 
 type Exercise = {
@@ -12,11 +12,12 @@ type Exercise = {
     exerciseName: string
     id: string | number[]
 }
+
 function HomeScreen() {
     const [exercises, setExercises] = useState<Exercise[]>([]);
     const handleAddExercise = (exerciseData: ExerciseData) => {
-        if(!!exerciseData.exerciseName.trim() && !!exerciseData.category.trim()){
-            const newExercise = {id: uuid.v4() , ...exerciseData };
+        if (!!exerciseData.exerciseName.trim() && !!exerciseData.category.trim()) {
+            const newExercise = {id: uuid.v4(), ...exerciseData};
             setExercises([...exercises, newExercise]);
         } else {
             Alert.alert(JSON.stringify("Напиши покороче. Тут ограничение в 35 символов"))
@@ -44,18 +45,23 @@ function StatisticsScreen() {
 }
 
 const Tab = createBottomTabNavigator();
+const HideKeyboard = ({children}: { children: ReactNode }): ReactElement => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>{children}</TouchableWithoutFeedback>
+)
 
 function App() {
 
     return (
-        <SafeAreaProvider>
-            <NavigationContainer>
-                <Tab.Navigator>
-                    <Tab.Screen name="Home" component={HomeScreen}/>
-                    <Tab.Screen name="Statistics" component={StatisticsScreen}/>
-                </Tab.Navigator>
-            </NavigationContainer>
-        </SafeAreaProvider>
+        <HideKeyboard>
+            <SafeAreaProvider>
+                <NavigationContainer>
+                    <Tab.Navigator>
+                        <Tab.Screen name="Home" component={HomeScreen}/>
+                        <Tab.Screen name="Statistics" component={StatisticsScreen}/>
+                    </Tab.Navigator>
+                </NavigationContainer>
+            </SafeAreaProvider>
+        </HideKeyboard>
     );
 }
 
