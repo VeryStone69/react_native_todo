@@ -6,8 +6,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {AddExerciseForm, ExerciseData} from "./common/component/AddExerciseForm/AddExerciseForm";
 import {ReactElement, ReactNode, useState} from "react";
 import uuid from 'react-native-uuid';
+import {ExerciseList} from "./common/component/ExerciseList/ExerciseList";
 
-type Exercise = {
+export type Exercise = {
     category: string
     exerciseName: string
     id: string | number[]
@@ -22,15 +23,18 @@ function HomeScreen() {
         } else {
             Alert.alert(JSON.stringify("Напиши покороче. Тут ограничение в 35 символов"))
         }
-
+    };
+    const handleSelectExercise = (selectedExercise: Exercise) => {
+        Alert.alert(JSON.stringify(`Выбрано упражнение: ${selectedExercise.exerciseName}`))
     };
     return (
         <>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                {/*<Text>путь длинной в 1000 миль начинается с одного единственного первого шага</Text>*/}
                 <AddExerciseForm onAddExercise={handleAddExercise}/>
             </View>
-            <View></View>
+            <View style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}>
+                <ExerciseList exercises={exercises} onSelectExercise={handleSelectExercise} />
+            </View>
         </>
 
     );
