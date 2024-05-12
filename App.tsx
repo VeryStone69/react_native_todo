@@ -14,13 +14,12 @@ type Exercise = {
 }
 function HomeScreen() {
     const [exercises, setExercises] = useState<Exercise[]>([]);
-    console.log(exercises)
     const handleAddExercise = (exerciseData: ExerciseData) => {
         if(!!exerciseData.exerciseName.trim() && !!exerciseData.category.trim()){
             const newExercise = {id: uuid.v4() , ...exerciseData };
             setExercises([...exercises, newExercise]);
         } else {
-            throw new Error("Заполните строки");
+            Alert.alert(JSON.stringify("Напиши покороче. Тут ограничение в 35 символов"))
         }
 
     };
