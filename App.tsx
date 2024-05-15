@@ -1,70 +1,42 @@
 import * as React from 'react';
-import {View, Text, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {AddExerciseForm, ExerciseData} from "./common/component/AddExerciseForm/AddExerciseForm";
-import {ReactElement, ReactNode, useState} from "react";
-import uuid from 'react-native-uuid';
-import {ExerciseList} from "./common/component/ExerciseList/ExerciseList";
+import {TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {ReactElement, ReactNode} from "react";
+import {ExerciseScreen} from "./common/component/ExerciseList/ExerciseScreen/ExerciseScreen";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {HomeScreen} from "./common/component/HomeScreen/HomeScreen";
 
-export type Exercise = {
-    category: string
-    exerciseName: string
-    id: string | number[]
-}
 
-function HomeScreen() {
-    const [exercises, setExercises] = useState<Exercise[]>([]);
-    const handleAddExercise = (exerciseData: ExerciseData) => {
-        if (!!exerciseData.exerciseName.trim() && !!exerciseData.category.trim()) {
-            const newExercise = {id: uuid.v4(), ...exerciseData};
-            setExercises([...exercises, newExercise]);
-        } else {
-            Alert.alert(JSON.stringify("Напиши покороче. Тут ограничение в 35 символов"))
-        }
-    };
-    const handleSelectExercise = (selectedExercise: Exercise) => {
-        Alert.alert(JSON.stringify(`Выбрано упражнение: ${selectedExercise.exerciseName}`))
-    };
+
+export function MyBackButton() {
+    const navigation = useNavigation();
+
     return (
-        <>
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <AddExerciseForm onAddExercise={handleAddExercise}/>
-            </View>
-            <View style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}>
-                <ExerciseList exercises={exercises} onSelectExercise={handleSelectExercise} />
-            </View>
-        </>
-
+        <Button
+            title="Back"
+            onPress={() => {
+                navigation.goBack();
+            }}
+        />
     );
 }
 
-function StatisticsScreen() {
-    return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text>Your Profile</Text>
-        </View>
-    );
-}
 
-const Tab = createBottomTabNavigator();
+
 const HideKeyboard = ({children}: { children: ReactNode }): ReactElement => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>{children}</TouchableWithoutFeedback>
 )
 
+const Stack:any = createNativeStackNavigator();
 function App() {
-
     return (
         <HideKeyboard>
-            <SafeAreaProvider>
-                <NavigationContainer>
-                    <Tab.Navigator>
-                        <Tab.Screen name="Home" component={HomeScreen}/>
-                        <Tab.Screen name="Statistics" component={StatisticsScreen}/>
-                    </Tab.Navigator>
-                </NavigationContainer>
-            </SafeAreaProvider>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="Home">
+                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="Exercise" component={ExerciseScreen} />
+                </Stack.Navigator>
+            </NavigationContainer>
         </HideKeyboard>
     );
 }

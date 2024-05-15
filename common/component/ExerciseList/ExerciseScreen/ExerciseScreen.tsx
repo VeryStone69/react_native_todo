@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import {Exercise, HomeScreen, MyBackButton} from "../../../../App";
-import {useNavigation} from "@react-navigation/native";
+import {MyBackButton} from "../../../../App";
+import {Exercise} from "../../HomeScreen/HomeScreen";
 
 
 export const ExerciseScreen= (props: Exercise) => {
@@ -52,7 +52,6 @@ export const ExerciseScreen= (props: Exercise) => {
                     <Text>Подход {index + 1}: Вес - {set.weight}, Повторения - {set.reps}</Text>
                 </View>
             ))}
-            <Button title="Home" onPress={MyBackButton} />
         </View>
     );
 };
