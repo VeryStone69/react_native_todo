@@ -3,7 +3,6 @@ import {View, TextInput, Button} from 'react-native';
 
 export type ExerciseData = {
     exerciseName: string;
-    category: string;
 }
 
 type AddExerciseFormProps = {
@@ -12,12 +11,10 @@ type AddExerciseFormProps = {
 
 export const AddExerciseForm= (props:AddExerciseFormProps) => {
     const [exerciseName, setExerciseName] = useState('');
-    const [category, setCategory] = useState('');
 
     const handleAddExercise = () => {
-        props.onAddExercise({exerciseName, category});
+        props.onAddExercise({exerciseName});
         setExerciseName('');
-        setCategory('');
     };
 
     return (
@@ -27,12 +24,6 @@ export const AddExerciseForm= (props:AddExerciseFormProps) => {
                 placeholder="Название упражнения"
                 value={exerciseName}
                 onChangeText={setExerciseName}
-            />
-            <TextInput
-                style={{width:200,height:50, fontSize:25, textAlign:"center"}}
-                placeholder="Категория"
-                value={category}
-                onChangeText={setCategory}
             />
                 <Button title="Добавить упражнение" onPress={handleAddExercise} />
 
