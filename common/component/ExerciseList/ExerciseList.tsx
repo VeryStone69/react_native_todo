@@ -22,7 +22,6 @@ export const ExerciseList = (props: ExerciseListProps) => {
                 data={props.exercises}
                 renderItem={({item}) => (
                     <TouchableOpacity onPress={() => handleSelectExercise(item)}>
-
                         <Text style={{
                             width: 200,
                             height: 50,

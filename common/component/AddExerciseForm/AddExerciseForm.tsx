@@ -6,7 +6,7 @@ export type ExerciseData = {
 }
 
 type AddExerciseFormProps = {
-    onAddExercise: (exerciseData: ExerciseData) => void;
+    onAddExercise: (exerciseData: string) => void;
 }
 
 export const AddExerciseForm= (props:AddExerciseFormProps) => {
@@ -14,7 +14,7 @@ export const AddExerciseForm= (props:AddExerciseFormProps) => {
     const [exerciseName, setExerciseName] = useState('');
 
     const handleAddExercise = () => {
-        props.onAddExercise({exerciseName});
+        props.onAddExercise(exerciseName);
         setExerciseName('');
     };
 
