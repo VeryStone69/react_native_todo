@@ -1,26 +1,10 @@
 import * as React from 'react';
-import {TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {ReactElement, ReactNode} from "react";
 import {ExerciseScreen} from "./common/component/ExerciseList/ExerciseScreen/ExerciseScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {HomeScreen} from "./common/component/HomeScreen/HomeScreen";
-
-
-
-export function MyBackButton() {
-    const navigation = useNavigation();
-
-    return (
-        <Button
-            title="Back"
-            onPress={() => {
-                navigation.goBack();
-            }}
-        />
-    );
-}
-
 
 
 const HideKeyboard = ({children}: { children: ReactNode }): ReactElement => (

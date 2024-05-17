@@ -1,8 +1,8 @@
-import {useState} from "react";
+import {ReactElement, ReactNode, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {AddExerciseForm, ExerciseData} from "../AddExerciseForm/AddExerciseForm";
 import uuid from "react-native-uuid";
-import {Alert, View} from "react-native";
+import {Alert, Keyboard, TouchableWithoutFeedback, View} from "react-native";
 import {ExerciseList} from "../ExerciseList/ExerciseList";
 import * as React from "react";
 
@@ -10,6 +10,8 @@ export type Exercise = {
     exerciseName: string
     id: string | number[]
 }
+
+
 
 export function HomeScreen() {
     const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -35,5 +37,7 @@ export function HomeScreen() {
                 <ExerciseList exercises={exercises} onSelectExercise={handleSelectExercise} navigation={navigation}  />
             </View>
         </>
+
+
     );
 }

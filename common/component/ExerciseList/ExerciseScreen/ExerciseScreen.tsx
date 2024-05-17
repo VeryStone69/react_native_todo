@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import {MyBackButton} from "../../../../App";
 import {Exercise} from "../../HomeScreen/HomeScreen";
 
 
@@ -36,6 +35,7 @@ export const ExerciseScreen= (props: Exercise) => {
                     keyboardType="numeric"
                     value={newWeight}
                     onChangeText={setNewWeight}
+
                 />
                 <TextInput
                     placeholder="Количество повторений"
