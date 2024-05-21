@@ -1,14 +1,17 @@
-import {useNavigation} from "@react-navigation/native";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
 import {AddExerciseForm} from "../AddExerciseForm/AddExerciseForm";
 import {Alert, View} from "react-native";
 import {ExerciseList} from "../ExerciseList/ExerciseList";
 import * as React from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from "react";
+import {RootStackParamList} from "../../../Type/NavigationType";
+
+type HomeScreenNavigationProp = NavigationProp<RootStackParamList, 'Home'>;
 
 export function HomeScreen() {
     const [exerciseKeys, setExerciseKeys] = useState<readonly string[]>([]);
-    const navigation = useNavigation();
+    const navigation = useNavigation<HomeScreenNavigationProp>();
 
     useEffect(() => {
         const fetchExerciseKeys = async () => {

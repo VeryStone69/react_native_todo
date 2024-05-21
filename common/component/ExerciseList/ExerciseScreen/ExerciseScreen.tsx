@@ -9,6 +9,8 @@ type ExerciseScreenProps = {
         };
     };
 };
+
+
 export const ExerciseScreen = ({route}: ExerciseScreenProps) => {
     const {exerciseName} = route.params;
     const [sets, setSets] = useState<{ weight: number; reps: number }[]>([]);
